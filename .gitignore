@@ -1,0 +1,5 @@
+.env
+.idea/
+
+/docker/php84/logs/*
+/docker/nginx/logs/*

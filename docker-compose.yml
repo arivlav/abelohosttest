@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+    ports:
+      - "${MYSQL_PORT}:3306"
+
+  php84:
+    restart: always
+    container_name: php_container
+    build:
+      context: docker/php84
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - "./app:/var/www/html/${APP_PATH}"
+      - ./docker/php84/logs:/tmp
+    ports:
+      - "${PHP_FPM_PORT}:9000"
+    command: [ "sh", "-c", "touch /tmp/xdebug.log" ]
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_container
+    restart: always
+    volumes:
+      - ./docker/nginx/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - "./app:/var/www/html/${APP_PATH}"
+      - ./docker/nginx/logs:/var/log/nginx
+    ports:
+      - "${NGINX_HTTP_PORT}:80"
+      - "${NGINX_HTTPS_PORT}:443"
+    environment:
+      - APP_URL=${APP_SERVER_URL}
+      - APP_PATH=${APP_PATH}
+    command: [ "sh", "-c", "touch /var/log/nginx/access.log /var/log/nginx/error.log && apk add --no-cache gettext >/dev/null && envsubst '$$APP_URL $$APP_PATH' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'" ]
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+networks:
+  app_network:
+    driver: bridge
