@@ -30,7 +30,7 @@ services:
       - ./docker/php84/logs:/tmp
     ports:
       - "${PHP_FPM_PORT}:9000"
-    command: [ "sh", "-c", "touch /tmp/xdebug.log" ]
+    command: [ "sh", "-c", "touch /tmp/xdebug.log && exec php-fpm -F" ]
     networks:
       - app_network
 
