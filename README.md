@@ -1,5 +1,5 @@
-# polisonlinetest
-Тестовое задание для Fullstack developer b2b.polis.online
+# abelohosttest
+Тестовое задание для Full-stack Developer (PHP / JS) AbeloHost
 
 ## Инструкция по запуску: ##
 
