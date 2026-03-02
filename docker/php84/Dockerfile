@@ -24,6 +24,7 @@ RUN apk add --no-cache \
 # Устанавливаем расширения PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install \
+    pdo\
     pdo_mysql \
     pdo_pgsql \
     mysqli \

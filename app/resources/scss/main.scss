@@ -1,0 +1,208 @@
+$header-color: #ffffff;
+$header-bg-color: #2b5465;
+$main-color: #464646;
+$link-color: #7597a2;
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: $main-color;
+    font-family:
+            Gill Sans Extrabold,
+            sans-serif;
+}
+
+.header {
+    background-color: $header-bg-color;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0 15px;
+
+    .header__inner {
+        color: $header-color;
+        margin: 0;
+        padding: 15px 0;
+        width: 100%;
+        max-width: 100%;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+.content {
+    flex: 1;
+    padding: 0 15px;
+    max-width: 100%;
+    width: 100%;
+    align-self: center;
+}
+
+.category {
+    display:flex;
+    flex-direction: column;
+    margin: 30px 0 0 0;
+
+    .category__first-line {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .category__title {
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+        font-weight: normal;
+        color: $main-color;
+        text-transform: uppercase;
+    }
+
+    .category__all-link {
+        color: $link-color;
+    }
+
+    .category__articles {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        align-items: stretch;
+        margin: 30px 0;
+    }
+}
+
+.articles__item_single {
+    gap: 20px;
+}
+
+.articles__item {
+    display: flex;
+    flex-direction: column;
+
+    .articles__item__image {
+        border-radius: 10px;
+        width: 100%;
+    }
+
+    .articles__item__image_small {
+        width: 50%;
+    }
+
+    .articles__item__wrapper {
+        padding: 10px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+    }
+
+    .articles__item__name {
+        font-size: 18px;
+    }
+
+    .articles__item__publish {
+        font-size: 14px;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    .articles__item__description {
+        font-size: 16px;
+    }
+
+    .articles__item__link {
+        font-size: 14px;
+        color: $link-color;
+        margin-top: auto;
+    }
+}
+
+.footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 15px 0;
+    background-color: $header-bg-color;
+
+    .footer__inner {
+        color: $header-color;
+        font-size: 10px;
+    }
+}
+
+/* Планшеты */
+@media (min-width: 600px) {
+    .header {
+        .header__inner {
+            max-width: 600px;
+            font-size: 16px;
+        }
+    }
+
+    .content {
+        max-width: 600px;
+        width: 600px;
+    }
+
+    .footer {
+        .footer__inner {
+            font-size: 12px;
+        }
+    }
+}
+
+/* Десктопы */
+@media (min-width: 1024px) {
+    .header {
+        .header__inner {
+            max-width: 1024px;
+            font-size: 24px;
+        }
+    }
+
+    .content {
+        max-width: 1024px;
+        width: 1024px;
+    }
+
+    .category {
+
+        .category__articles {
+
+            .articles__item {
+                flex: 1;
+            }
+        }
+    }
+
+    .footer {
+        .footer__inner {
+            font-size: 14px;
+        }
+    }
+}
+
+/* Большие экраны */
+@media (min-width: 1200px) {
+    .header {
+        .header__inner {
+            max-width: 1200px;
+            font-size: 26px;
+        }
+    }
+
+    .content {
+        max-width: 1200px;
+        width: 1200px;
+    }
+
+    .footer {
+        .footer__inner {
+            font-size: 16px;
+        }
+    }
+}

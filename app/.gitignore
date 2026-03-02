@@ -1,1 +1,5 @@
 /vendor
+/node_modules
+/resources/var
+/public/images/articles/*
+!public/images/default.webp
