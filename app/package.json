@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "sass": "^1.97.3"
+  },
+  "scripts": {
+    "build-css": "sass --no-source-map resources/scss/main.scss public/css/main.css",
+    "watch-css": "sass --watch resources/scss/main.scss public/css/main.css"
+  }
+}
