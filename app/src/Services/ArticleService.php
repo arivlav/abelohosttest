@@ -32,10 +32,10 @@ readonly class ArticleService
         return $article;
     }
 
-    public function findRandTreeForAllCategories(): array
+    public function findRandTreeForCategories(array $categoriesIds = [], array $withoutArticleIds = []): array
     {
         $formattedArticles = [];
-        $articles = $this->articleRepository->findRandTreeForAllCategories();
+        $articles = $this->articleRepository->findRandTreeForCategories($categoriesIds, $withoutArticleIds);
         foreach ($articles as $article) {
             $categoryId = (int)$article['category_id'];
             $article[$categoryId] ??= [];
@@ -56,7 +56,7 @@ readonly class ArticleService
         return $formattedArticles;
     }
 
-    public function findByCategory(
+    public function findByCategoryWithPagination(
         int $categoryId,
         string $sort = 'published_at',
         string $direction = 'desc',

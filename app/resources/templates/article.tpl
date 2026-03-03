@@ -18,4 +18,31 @@
     </div>
 </article>
 <p class="articles__item__link"><a href="/">← Back to main</a></p>
+
+<section class="category">
+    <h2 class="category__title">Similar articles</h2>
+    <div class="category__articles">
+        {foreach $similarArticles as $item}
+            <div class="articles__item">
+                <img class="articles__item__image" src="{$item.image}" alt="{$item.name|escape}"/>
+                <div class="articles__item__wrapper">
+                    <div class="articles__item__name">
+                        {$item.name}
+                    </div>
+                    <div class="articles__item__publish">
+                        {$item.published_at}
+                    </div>
+                    <div class="articles__item__description">
+                        {$item.description}
+                    </div>
+                    <a class="articles__item__link" href="/articles/{$item.id}">
+                        Continue Reading
+                    </a>
+                </div>
+            </div>
+            {foreachelse}
+            <p>No articles in this category yet.</p>
+        {/foreach}
+    </div>
+</section>
 {include file='layout/footer.tpl'}

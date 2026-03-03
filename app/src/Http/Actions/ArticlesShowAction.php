@@ -13,10 +13,12 @@ readonly class ArticlesShowAction implements IAction
         if ($id !== null) {
             $this->articleService->increaseViewsById($id);
             $article = $this->articleService->findById($id);
+            $similarArticles = $this->articleService->findRandTreeForCategories([$article['category_id']], [$article['id']]);
             if ($article) {
                 return [
                     'title' => $article['name'],
                     'article' => $article,
+                    'similarArticles' => $similarArticles[array_key_first($similarArticles)]
                 ];
             }
         }

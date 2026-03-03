@@ -31,7 +31,7 @@ readonly class CategoriesShowAction implements IAction
 
         [$page, $perPage, $sort, $direction] = $this->getQueryParams();
 
-        $result = $this->articleService->findByCategory(
+        $result = $this->articleService->findByCategoryWithPagination(
             $id,
             $sort,
             $direction,

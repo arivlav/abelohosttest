@@ -17,7 +17,7 @@ readonly class CategoriesIndexAction implements IAction
         return [
             'title' => 'Main',
             'categories' => $this->categoryRepository->all(),
-            'articles' => $this->articleService->findRandTreeForAllCategories(),
+            'articles' => $this->articleService->findRandTreeForCategories(),
         ];
     }
 }

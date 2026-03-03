@@ -7,8 +7,16 @@ use App\Common\DB;
 class PDOArticleRepository implements IArticleRepository
 {
 
-    public function findRandTreeForAllCategories(): array
+    public function findRandTreeForCategories(array $categoryIds = [], array $withoutArticleIds = []): array
     {
+        $additionalCategoryIdsStr = '';
+        if ($categoryIds) {
+            $additionalCategoryIdsStr = ' AND c.id IN (' . implode(', ', $categoryIds) . ')';
+        }
+        $additionalArticleIdStr = '';
+        if ($withoutArticleIds) {
+            $additionalArticleIdStr = ' AND a.id NOT IN (' . implode(', ', $withoutArticleIds) . ')';
+        }
         return DB::select(
             'SELECT
                 c.id AS category_id,
@@ -29,7 +37,7 @@ class PDOArticleRepository implements IArticleRepository
                 ) t
                 WHERE t.rn <= 3
             ) a ON a.category_id = c.id
-            WHERE c.deleted_at IS NULL
+            WHERE c.deleted_at IS NULL' . $additionalCategoryIdsStr . $additionalArticleIdStr . '
             ORDER BY c.id, a.rn'
         );
     }
