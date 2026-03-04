@@ -48,7 +48,7 @@ if [ -f "package.json" ]; then
         run_step "npm run build" npm run build-css
     fi
 
-run_step "php src/console/seederScript.php" php src/console/seederScript.php
+run_step "php src/Сonsole/seederScript.php" php src/Сonsole/seederScript.php
 
 log "Starting main process: $*"
 if [ "$#" -eq 0 ]; then

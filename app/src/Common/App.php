@@ -20,8 +20,12 @@ class App
         Route::dispatch(new Request()->getUrl());
     }
 
+    /**
+     * @throws \Exception
+     */
     private static function loadSettings(): void {
         Config::load();
         Route::load();
+        DB::getConnection();
     }
 }

@@ -78,13 +78,17 @@ class DB
         }
     }
 
+    public static function execute(string $sql, array $params = []): false|\PDOStatement
+    {
+        $stmt = self::$instance->prepare($sql);
+        self::bindParams($stmt, $params);
+        $stmt->execute();
+        return $stmt;
+    }
     public static function select(string $query, array $params = []): array
     {
         try {
-            $pdo = self::getConnection();
-            $stmt = $pdo->prepare($query);
-            self::bindParams($stmt, $params);
-            $stmt->execute();
+            $stmt = self::execute($query, $params);
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             throw new \Exception("Ошибка select-запроса: " . $e->getMessage());
@@ -94,10 +98,7 @@ class DB
     public static function count(string $query, array $params = []): int
     {
         try {
-            $pdo = self::getConnection();
-            $stmt = $pdo->prepare($query);
-            self::bindParams($stmt, $params);
-            $stmt->execute();
+            $stmt = self::execute($query, $params);
             return (int)$stmt->fetchColumn();
         } catch (\PDOException $e) {
             throw new \Exception("Ошибка count-запроса: " . $e->getMessage());
@@ -107,11 +108,8 @@ class DB
     public static function insert(string $query, array $params = []): string
     {
         try {
-            $pdo = self::getConnection();
-            $stmt = $pdo->prepare($query);
-            self::bindParams($stmt, $params);
-            $stmt->execute();
-            return $pdo->lastInsertId();
+            self::execute($query, $params);
+            return self::$instance->lastInsertId();
         } catch (\PDOException $e) {
             throw new \Exception("Ошибка insert-запроса: " . $e->getMessage());
         }
@@ -120,10 +118,7 @@ class DB
     public static function update(string $query, array $params = []): int
     {
         try {
-            $pdo = self::getConnection();
-            $stmt = $pdo->prepare($query);
-            self::bindParams($stmt, $params);
-            $stmt->execute();
+            $stmt = self::execute($query, $params);
             return $stmt->rowCount();
         } catch (\PDOException $e) {
             throw new \Exception("Ошибка update-запроса: " . $e->getMessage());
